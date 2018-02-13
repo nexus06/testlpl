@@ -41,18 +41,18 @@ RUN wget -O android-sdk.zip https://dl.google.com/android/repository/tools_r25.2
 ENV PATH ${PATH}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/sdk-tools
 
 # Install sdk elements
-RUN mkdir /opt/tools
-COPY tools /opt/tools
-RUN chmod +x /opt/tools/android-accept-licenses.sh
+#RUN mkdir /opt/tools
+#COPY tools /opt/tools
+#RUN chmod +x /opt/tools/android-accept-licenses.sh
 ENV PATH ${PATH}:/opt/tools
 
 #Prepare local repos
 RUN mkdir ~/.android && touch ~/.android/repositories.cfg
 
 # keep in this order
-#RUN echo y|sdkmanager "tools"
-RUN ["/opt/tools/android-accept-licenses.sh", \
-    "sdkmanager tools"]
+RUN echo y|sdkmanager "tools"
+#RUN ["/opt/tools/android-accept-licenses.sh", \
+#    "sdkmanager tools"]
 RUN sdkmanager "build-tools;24.0.3"
 RUN sdkmanager "build-tools;25.0.2"
 RUN sdkmanager "build-tools;26.0.2"
