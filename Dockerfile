@@ -59,6 +59,7 @@ RUN sdkmanager "build-tools;26.0.2"
 RUN sdkmanager "platform-tools"
 RUN sdkmanager "platforms;android-24"
 RUN sdkmanager "platforms;android-25"
+RUN sdkmanager "platforms;android-26"
 RUN sdkmanager "extras;android;m2repository"
 RUN sdkmanager "extras;google;google_play_services"
 RUN sdkmanager --update
