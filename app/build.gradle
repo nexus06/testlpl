@@ -1,12 +1,41 @@
 apply plugin: 'com.android.application'
 
+
+def computeVersionName() {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine '../delivery/utils/nexversion.sh'
+        standardOutput = stdout
+    }
+
+    return stdout.toString().trim().replaceAll('v', '')
+}
+
+
+def computeVersionCode() {
+
+    // SSVVVXX
+    int maxLength = 7
+
+    // Starts with 25
+    String versionNamePrefix = computeVersionName().replaceAll('\\.', '')
+
+    String versionCode =  String.valueOf(24) + versionNamePrefix
+
+
+    versionCode = versionCode.padRight(maxLength, "0")
+
+    return versionCode.toInteger()
+}
+
+
 android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "troya.telefonica.com.troya_app_settings"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
+        versionCode computeVersionCode()
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
