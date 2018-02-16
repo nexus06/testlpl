@@ -137,7 +137,8 @@ function tag_version() {
   local version=$1
   git tag $version
   git push origin --tags
-}# Get the current version (from PRODUCT_VERSION or the last tag)
+}
+# Get the current version (from PRODUCT_VERSION or the last tag)
 function get_version() {
   echo ${PRODUCT_VERSION:-$(get_last_tag_version || echo "0.0.0")}
 }
