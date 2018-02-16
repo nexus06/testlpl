@@ -1,0 +1,1 @@
+/usr/sbin/service <%= app_name %> start || true

@@ -1,0 +1,27 @@
+#
+# Upstart script for a <%= ENV['app_name'] %> Play-<%= ENV['play_version'] %>! application
+#
+description     "Start and Stop the <%= ENV['app_name'] %> application"
+author          "Telefónica Digital <support@11paths.com>"
+version         "<%= ENV['version'] %>"
+
+env PLAY_BINARY=/opt/play-<%= ENV['play_version'] %>/play
+env APP_HOME=<%= ENV['prefix'] %>/<%= ENV['app_name'] %>
+
+start on (filesystem and net-device-up IFACE=lo) or runlevel [2345]
+stop on runlevel [016]
+respawn
+respawn limit 10 5
+umask 022
+setuid <%= ENV['app_user'] %>
+setgid <%= ENV['app_group'] %>
+chdir <%= ENV['prefix'] %>/<%= ENV['app_name'] %>
+
+pre-start script
+    test -x $PLAY_BINARY || { stop; exit 0; }
+    rm ${APP_HOME}/server.pid || true
+end script
+
+exec $PLAY_BINARY run $APP_HOME -Dprecompiled=true
+
+

@@ -1,0 +1,17 @@
+[Unit]
+Description=<%= ENV['app_name'] %> - <%= ENV['version'] %> Play! application
+After=network.target
+
+[Service]
+PIDFile=<%= ENV['prefix'] %>/<%= ENV['app_name'] %>/server.pid
+WorkingDirectory=<%= ENV['prefix'] %>/<%= ENV['app_name'] %>
+ExecStart=/opt/play-<%= ENV['play_version'] %>/play start -Dprecompiled=true
+Restart=on-failure
+User=<%= ENV['app_user'] %>
+Group=<%= ENV['app_group'] %>
+
+# See http://serverfault.com/a/695863
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
