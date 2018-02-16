@@ -61,17 +61,6 @@ function get_release_type() {
   echo $release_type
 }
 
-function get_last_tag_version() {
-  fetch_tags
-  local last_tag=""
-  local tags=$(git log --tags --pretty="format:%D" | grep "tag: " | awk -F "tag: " '{print $2}' | cut -d ',' -f 1) 
-  shopt -s extglob
-  for tag in $tags; do
-    [[ ${tag} =~ ^v?[0-9]+\.[0-9]+\.[0-9]+.*$ ]] && last_tag=$tag; break;
-  done
-  [ -z "${last_tag}" ] && return 1 || echo ${last_tag}
-}
-
 function get_release_commits() {
   if [ -n "$(get_last_tag_version)" ]; then
     git log $(get_last_tag_version)..HEAD --oneline;
