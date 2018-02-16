@@ -35,7 +35,7 @@ function get_last_tag_version() {
 
 function is_release_a_feature() {
   local release_type=$(get_release_type 2>/dev/null)
-  [ "$release_type" == "" ] || [ "$release_type" == "unk" ] || [ "$release_type" == "feat" ] && return 0 || return 1
+  ([ "$release_type" == "" ] || [ "$release_type" == "unk" ] || [ "$release_type" == "feat" ]) && return 0 || return 1
 }
 
 function get_commit_type() {
