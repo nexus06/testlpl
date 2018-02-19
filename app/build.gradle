@@ -8,23 +8,16 @@ def computeVersionName() {
         standardOutput = stdout
     }
 
-    return stdout.toString().trim().replaceAll('v', '')
+    return stdout.toString()
 }
 
 
 def computeVersionCode() {
-
     // SSVVVXX
     int maxLength = 7
-
     // Starts with 25
     String versionNamePrefix = computeVersionName().replaceAll('\\.', '')
-
-    String versionCode =  String.valueOf(24) + versionNamePrefix
-
-
     versionCode = versionCode.padRight(maxLength, "0")
-
     return versionCode.toInteger()
 }
 

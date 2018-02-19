@@ -5,6 +5,8 @@ ARG_DEFS=(
   "[--mode=(.*)]"
 )
 
+declare -a RELEASE_TYPES=(unk feat fix docs style refactor perf test chore skip)
+
 function get_version() {
   echo ${PRODUCT_VERSION:-$(get_last_tag_version || echo "0.0.0")}
 }
@@ -35,6 +37,7 @@ function get_last_tag_version() {
 
 function is_release_a_feature() {
   local release_type=$(get_release_type 2>/dev/null)
+echo release_type
   ([ "$release_type" == "" ] || [ "$release_type" == "unk" ] || [ "$release_type" == "feat" ]) && return 0 || return 1
 }
 
