@@ -37,7 +37,6 @@ function get_last_tag_version() {
 
 function is_release_a_feature() {
   local release_type=$(get_release_type 2>/dev/null)
-echo release_type
   ([ "$release_type" == "" ] || [ "$release_type" == "unk" ] || [ "$release_type" == "feat" ]) && return 0 || return 1
 }
 
@@ -86,5 +85,5 @@ function get_next_version() {
   is_prerelease && get_version || get_next_version_from_feature
 }
  
-echo ${PRODUCT_VERSION:-$(get_next_version)}  
+echo $(get_next_version)
 
